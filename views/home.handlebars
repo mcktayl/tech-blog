@@ -9,5 +9,17 @@
   </div>
 </nav>
 <div id='main-content-container'>
+  {{#each posts as |post|}}
+    <div class='container'>
+      <div class='post-title'>
+        {{post.title}}
+      </div>
+      <div class='post-content'>
+        {{post.content}}
+      </div>
+      <div class='user-info'>
 
+      </div>
+    </div>
+  {{/each}}
 </div>
