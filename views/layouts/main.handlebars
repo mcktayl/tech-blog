@@ -16,10 +16,19 @@
         <div class='navbar-nav'>
           <a class='nav-link active' aria-current='page' href='/'>Home</a>
           <a class='nav-link' href='#'>Dashboard</a>
-          <a class='nav-link' href='/login'>Login</a>
+          {{#if logged_in}}
+            <button id='logout' class='btn'>Logout</button>
+          {{else}}
+            <button id='login' class='btn'><a href='/login'>Login</a></button>
+          {{/if}}
         </div>
       </div>
     </nav>
     {{{body}}}
+
+    <!-- only includes the logout script if the user is currently logged in -->
+    {{#if logged_in}}
+      <script src='/js/logout.js'></script>
+    {{/if}}
   </body>
 </html>
