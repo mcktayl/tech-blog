@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     const postData = await Post.findAll();
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    res.render('home', { posts });
+    res.render('home', { posts, logged_in: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -15,6 +15,11 @@ router.get('/', async (req, res) => {
 
 // login route
 router.get('/login', (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+
   res.render('login');
 });
 
