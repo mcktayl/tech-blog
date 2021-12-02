@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
     }
     console.log(userInfo);
 
-    const validPassword = await userInfo.checkPassword(req.body.password);
+    const validPassword = userInfo.checkPassword(req.body.password);
     if (!validPassword) {
       res
         .status(400)
