@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
     }
     console.log(userInfo);
 
-    const validPassword = userInfo.checkPassword(req.body.password);
+    const validPassword = await userInfo.checkPassword(req.body.password);
     if (!validPassword) {
       res
         .status(400)
@@ -44,6 +44,24 @@ router.post('/logout', (req, res) => {
     });
   } else {
     res.status(404).end();
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const userData = await User.create({
+      user_name: req.body.user_name,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+
+      res.json({ user: userData, message: 'You are now logged in!' });
+    });
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
